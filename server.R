@@ -2,9 +2,7 @@ library(shiny)
 library(quantmod)
 
 shinyServer(function(input, output) {
-  
   data <- reactive(getSymbols(c(input$stock),src="yahoo",from=Sys.Date()-input$range,auto.assign=FALSE))
-  
   output$plot <- renderPlot({
       data <- data()
       if (input$stock == "AAPL") title <- "Apple"
@@ -16,5 +14,4 @@ shinyServer(function(input, output) {
       if (input$price == "Low") plot(data[,3], main=title)
       if (input$price == "Close") plot(data[,4], main=title)
   })
-  
 })
